@@ -28,5 +28,6 @@ describe('Counter 컴포넌트 동작 테스트', () => {
         // 6. 결과 검증
         // 클릭 후에는 "현재 숫자: 1"이 화면에 보여야 함
         expect(screen.getByText('현재 숫자: 1')).toBeInTheDocument();
+        screen.debug()
     });
 });
