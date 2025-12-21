@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-// 사용자 데이터 타입 정의
 interface User {
     id: number;
     name: string;
@@ -9,24 +8,32 @@ interface User {
 export default function UserList() {
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
+    // [추가] 에러 메시지를 저장할 상태
+    const [error, setError] = useState('');
 
     useEffect(() => {
-        // 실제 API 호출 (테스트에서는 가짜 함수가 실행됨)
         fetch('https://jsonplaceholder.typicode.com/users')
-            .then((response) => response.json())
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('서버 에러가 발생했습니다.');
+                }
+                return response.json();
+            })
             .then((data) => {
                 setUsers(data);
-                setLoading(false); // 로딩 끝
+                setLoading(false);
             })
-            .catch((error) => {
-                console.error('Error fetching data:', error);
+            .catch((err) => {
+                // [추가] 에러 발생 시 상태 업데이트
+                setError('에러가 발생했습니다.');
                 setLoading(false);
             });
     }, []);
 
-    if (loading) {
-        return <p>불러오는 중...</p>;
-    }
+    if (loading) return <p>불러오는 중...</p>;
+
+    // [추가] 에러 메시지가 있으면 표시
+    if (error) return <p>{error}</p>;
 
     return (
         <ul>
