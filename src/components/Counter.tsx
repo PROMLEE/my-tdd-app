@@ -1,19 +1,16 @@
-import { useState } from 'react';
 import CountButton from './CountButton';
+import useCounter from '../hooks/useCounter'; // Hook import
 
 export default function Counter() {
-    const [count, setCount] = useState(0);
-
-    const handleClick = () => {
-        setCount(prev => prev + 1);
-    };
+    // [수정] 직접 useState를 쓰지 않고 Hook을 사용합니다.
+    const { count, increment } = useCounter();
 
     return (
         <div>
             <p>현재 숫자: {count}</p>
-            <CountButton label="+" onClick={handleClick} />
+            {/* 함수 이름이 handleClick에서 increment로 바뀌었음에 주의하세요 */}
+            <CountButton label="+" onClick={increment} />
 
-            {/* [추가] 조건부 렌더링: count가 3보다 크거나 같으면 경고 메시지 표시 */}
             {count >= 3 && (
                 <p style={{ color: 'red' }}>
                     숫자가 너무 커요!
