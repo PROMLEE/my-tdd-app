@@ -23,7 +23,7 @@ export default function UserList() {
                 setUsers(data);
                 setLoading(false);
             })
-            .catch((err) => {
+            .catch(() => {
                 // [추가] 에러 발생 시 상태 업데이트
                 setError('에러가 발생했습니다.');
                 setLoading(false);
