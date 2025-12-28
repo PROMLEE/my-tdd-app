@@ -28,4 +28,4 @@ jobs:
 
       # 4. 테스트를 실행합니다. (이 단계가 실패하면 Merge가 막힙니다)
       - name: Run tests
-        run: npx vitest run
+        run: npx vitest run --reporter=verbose
