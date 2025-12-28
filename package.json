@@ -7,7 +7,6 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "test": "vitest",
-    "test:ci": "vitest run --reporter=verbose --no-file-parallelism",
     "lint": "eslint .",
     "preview": "vite preview"
   },

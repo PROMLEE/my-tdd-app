@@ -2,7 +2,7 @@ name: Run Tests
 
 on:
   push:
-#    branches: [ main ] # main 브랜치에 푸시될 때만 동작하도록 변경
+    #    branches: [ main ] # main 브랜치에 푸시될 때만 동작하도록 변경
     branches: [ "**" ] # 모든 브랜치에 대해 동작하도록 변경
   pull_request:
     branches: [ main ]
@@ -12,18 +12,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. 코드를 내려받습니다.
       - uses: actions/checkout@v4
 
+      # 2. Node.js를 설치합니다.
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm' # [중요] npm 패키지 캐싱을 켜서 설치 단계 멈춤/지연 방지
 
+      # 3. 의존성 패키지를 설치합니다.
       - name: Install dependencies
         run: npm ci
 
+      # 4. 테스트를 실행합니다. (이 단계가 실패하면 Merge가 막힙니다)
       - name: Run tests
-        run: npm run test:ci # package.json에 정의한 스크립트 실행
-        env:
-          CI: true # 명시적으로 CI 환경임을 선언
+        run: npm test
